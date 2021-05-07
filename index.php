@@ -49,7 +49,7 @@ $count = count($dataArray);
 
 if (!isset($_GET['show'])) {
 	//do nothing
-} elseif ($_GET['show'] > $count || empty($_GET['show']) && $_GET['show'] != "0") {
+} elseif (empty($_GET['show']) && $_GET['show'] != "0") {
 	array_push($errorArray, [
 		"show" => "invalid input"
 	]);
@@ -57,6 +57,10 @@ if (!isset($_GET['show'])) {
 	$show = $_GET['show'];
 	shuffle($dataArray);
 	$dataArray = array_slice($dataArray, 0, $show);
+}
+
+if ($_GET['show'] > 20) {
+	array_push($errorArray, ["show" => "must be 20 or under"]);
 }
 
 if (count($errorArray)) {
